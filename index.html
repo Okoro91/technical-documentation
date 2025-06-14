@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Techinical Codumentation</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="container">
@@ -77,7 +78,7 @@
         </ul>
       </article>
     </section>
-    <section>
+    <section id="navigation">
       <header>Navigating Files and Directories</header>
       <article>
         <p>The operating system's file system organizes data into files and directories. Directories can contain files or other directories, enabling hierarchical organization.</p>
@@ -203,7 +204,7 @@ $ cd -</code></pre>
       </article>
     </section>
 
-    <section>
+    <section id="working">
       <header>Working With Files and Directories</header>
 
       <article>
@@ -262,158 +263,98 @@ $ cd -</code></pre>
           </code>
         </section>
       </article>
+    </section>
 
-      <section>
-        <header>Working With Files and Directories</header>
-
-        <article>
-          <section>
-            <h2>Creating Directories</h2>
-            <p>Use the <code>mkdir</code> command to create directories:</p>
-            <code>
-              $ mkdir thesis<br>
-              $ mkdir -p project/data project/results
-            </code>
-          </section>
-
-          <section>
-            <h2>Creating Files</h2>
-            <p>Create a text file using <code>nano</code> or the <code>touch</code> command:</p>
-            <code>
-              $ cd thesis<br>
-              $ nano draft.txt<br>
-              $ touch my_file.txt
-            </code>
-          </section>
-
-          <section>
-            <h2>Moving and Renaming Files</h2>
-            <p>Rename or move files using the <code>mv</code> command:</p>
-            <code>
-              $ mv thesis/draft.txt thesis/quotes.txt<br>
-              $ mv thesis/quotes.txt .
-            </code>
-          </section>
-
-          <section>
-            <h2>Copying Files and Directories</h2>
-            <p>Copy files using the <code>cp</code> command:</p>
-            <code>
-              $ cp quotes.txt thesis/quotations.txt<br>
-              $ cp -r thesis thesis_backup
-            </code>
-          </section>
-
-          <section>
-            <h2>Removing Files and Directories</h2>
-            <p>Remove files with <code>rm</code> and directories with <code>rm -r</code>:</p>
-            <code>
-              $ rm quotes.txt<br>
-              $ rm -r thesis
-            </code>
-          </section>
-
-          <section>
-            <h2>Using Wildcards</h2>
-            <p>Wildcards match patterns for multiple files:</p>
-            <code>
-              $ ls *.pdb<br>
-              $ ls ?ethane.pdb
-            </code>
-          </section>
-        </article>
-      </section>
-
-      <section>
+      <section id="loops">
         <header>Loops</header>
         <article>
           <p>Loops allow repetition of commands for each item in a list, making them key for automation and reducing errors. Here's a simple example to extract classifications from files:</p>
           <pre><code>$ for filename in basilisk.dat minotaur.dat unicorn.dat
-> do
-> head -n 2 $filename | tail -n 1
-> done
-CLASSIFICATION: basiliscus vulgaris
-CLASSIFICATION: bos hominus
-CLASSIFICATION: equus monoceros</code></pre>
+    > do
+    > head -n 2 $filename | tail -n 1
+    > done
+    CLASSIFICATION: basiliscus vulgaris
+    CLASSIFICATION: bos hominus
+    CLASSIFICATION: equus monoceros</code></pre>
 
-          <h2>General Loop Structure</h2>
-          <pre><code>for variable in list
-    do
-        commands
-    done</code></pre>
+            <h2>General Loop Structure</h2>
+            <pre><code>for variable in list
+        do
+            commands
+        done</code></pre>
 
-          <h3>Example:</h3>
-          <pre><code>$ for x in file1 file2 file3
-> do
-> echo $x
-> done</code></pre>
+            <h3>Example:</h3>
+            <pre><code>$ for x in file1 file2 file3
+    > do
+    > echo $x
+    > done</code></pre>
 
-          <h2>Handling Variables</h2>
-          <p>Access variables using <code>$variable</code>. Use curly braces <code>${variable}</code> for clarity when concatenating.</p>
+            <h2>Handling Variables</h2>
+            <p>Access variables using <code>$variable</code>. Use curly braces <code>${variable}</code> for clarity when concatenating.</p>
 
-          <h2>Loop with Wildcards</h2>
-          <pre><code>$ for datafile in *.pdb
-> do
-> echo $datafile
-> done</code></pre>
+            <h2>Loop with Wildcards</h2>
+            <pre><code>$ for datafile in *.pdb
+    > do
+    > echo $datafile
+    > done</code></pre>
 
-          <h2>Saving Output</h2>
-          <pre><code>$ for alkanes in *.pdb
-> do
-> cat $alkanes >> combined.pdb
-> done</code></pre>
+            <h2>Saving Output</h2>
+            <pre><code>$ for alkanes in *.pdb
+    > do
+    > cat $alkanes >> combined.pdb
+    > done</code></pre>
 
-          <h2>Handling File Spaces</h2>
-          <pre><code>$ for filename in "red dragon.dat" "purple unicorn.dat"
-> do
-> echo $filename
-> done</code></pre>
+            <h2>Handling File Spaces</h2>
+            <pre><code>$ for filename in "red dragon.dat" "purple unicorn.dat"
+    > do
+    > echo $filename
+    > done</code></pre>
 
-          <h2>Debugging with Echo</h2>
-          <pre><code>$ for filename in *.dat
-> do
-> echo cp $filename backup-$filename
-> done</code></pre>
-        </article>
-        <section>
-          <header>Loops</header>
-          <article>
-            <p>Loops are programming constructs that allow repeating commands for each item in a list, improving productivity through automation and reducing errors.</p>
-            <p>For example, to print the classification of species in files named <code>basilisk.dat</code>, <code>minotaur.dat</code>, and <code>unicorn.dat</code>, we use:</p>
-            <pre>
-$ for filename in basilisk.dat minotaur.dat unicorn.dat
-> do
-> head -n 2 $filename | tail -n 1
-> done
-        </pre>
-            <p>The output will be:</p>
-            <pre>
-CLASSIFICATION: basiliscus vulgaris
-CLASSIFICATION: bos hominus
-CLASSIFICATION: equus monoceros
-        </pre>
-            <p>The shell iterates over the list, assigns each item to the variable <code>filename</code>, and executes the loop body. Variables like <code>$filename</code> are referenced with a <code>$</code>.</p>
-            <p>Loops can handle filenames, numbers, or other data, and variable names should be meaningful.</p>
-            <p>To back up files, a loop like this can be used:</p>
-            <pre>
-$ for filename in *.dat
-> do
-> cp $filename original-$filename
-> done
-        </pre>
-            <p>Use quotes for filenames with spaces:</p>
-            <pre>
-$ for filename in "red dragon.dat" "purple unicorn.dat"
-> do
-> head -n 100 "$filename" | tail -n 20
-> done
-        </pre>
-            <p>Debug loops using <code>echo</code>:</p>
-            <pre>
-$ for filename in *.dat
-> do
-> echo cp $filename original-$filename
-> done
+            <h2>Debugging with Echo</h2>
+            <pre><code>$ for filename in *.dat
+    > do
+    > echo cp $filename backup-$filename
+    > done</code></pre>
+            </article>
+            <section>
+            <header>Loops</header>
+            <article>
+                <p>Loops are programming constructs that allow repeating commands for each item in a list, improving productivity through automation and reducing errors.</p>
+                <p>For example, to print the classification of species in files named <code>basilisk.dat</code>, <code>minotaur.dat</code>, and <code>unicorn.dat</code>, we use:</p>
+                <pre>
+    $ for filename in basilisk.dat minotaur.dat unicorn.dat
+    > do
+    > head -n 2 $filename | tail -n 1
+    > done
+            </pre>
+                <p>The output will be:</p>
+                <pre>
+    CLASSIFICATION: basiliscus vulgaris
+    CLASSIFICATION: bos hominus
+    CLASSIFICATION: equus monoceros
+            </pre>
+                <p>The shell iterates over the list, assigns each item to the variable <code>filename</code>, and executes the loop body. Variables like <code>$filename</code> are referenced with a <code>$</code>.</p>
+                <p>Loops can handle filenames, numbers, or other data, and variable names should be meaningful.</p>
+                <p>To back up files, a loop like this can be used:</p>
+                <pre>
+    $ for filename in *.dat
+    > do
+    > cp $filename original-$filename
+    > done
+            </pre>
+                <p>Use quotes for filenames with spaces:</p>
+                <pre>
+    $ for filename in "red dragon.dat" "purple unicorn.dat"
+    > do
+    > head -n 100 "$filename" | tail -n 20
+    > done
+            </pre>
+                <p>Debug loops using <code>echo</code>:</p>
+                <pre>
+    $ for filename in *.dat
+    > do
+    > echo cp $filename original-$filename
+    > done
         </pre>
           </article>
         </section>
@@ -465,7 +406,7 @@ done</code></pre>
           </ul>
         </div>
       </section>
-      <section>
+      <section id="script">
         <header>Shell Scripts</header>
         <article>
           <p>Shell scripts save frequently used commands in files, allowing you to re-run them with a single command. This makes work faster, reduces errors, and ensures reproducibility. Below are some examples and concepts related to shell scripting.</p>
@@ -544,7 +485,7 @@ $ bash longest.sh shell-lesson-data/exercise-data/proteins pdb
         </article>
       </section>
 
-      <section>
+      <section id="finding">
         <header>Finding Things</header>
         <article>
           <p>In the same way that many of us now use 'Google' as a verb meaning 'to find', Unix programmers often use the word 'grep'. 'grep' is a contraction of 'global/regular expression/print', a common sequence of operations in early Unix text editors. It is also the name of a very useful command-line program.</p>
