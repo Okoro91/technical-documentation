@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+  <nav id="navbar">
+    <ul>
+      <li><a class="nav-link" href="#intro">Introduction</a></li>
+      <li><a class="nav-link" href="#ground">Background</a></li>
+      <li><a class="nav-link" href="#shell">What is Shell</a></li>
+      <li><a class="nav-link" href="#navigation">Navigating Files and Directories</a></li>
+      <li><a class="nav-link" href="#working">Working With Files and Directories</a></li>
+      <li><a class="nav-link" href="#pipes">Pipes and Filters</a></li>
+      <li><a class="nav-link" href="#loops">Loops</a></li>
+      <li><a class="nav-link" href="#script">Shell Scripts</a></li>
+      <li><a class="nav-link" href="#finding">Finding Things</a></li>
+    </ul>
+  </nav>
+  <main>
+    <header>CLI Unix Shell Documentation</header>
+    <section id="intro">
+      <header>Introduction</header>
+      <article>
+        <p>The Unix shell has been around longer than most of its users have been alive. It has survived because it's a powerful tool that allows users to perform complex and powerful tasks, often with just a few keystrokes or lines of code. It helps users automate repetitive tasks and easily combine smaller tasks into larger, more powerful workflows.</p>
+        <p>Use of the shell is fundamental to a wide range of advanced computing tasks, including high-performance computing. These lessons will introduce you to this powerful tool.</p>
+      </article>
+    </section>
+
+    <section id="ground">
+      <header>Background</header>
+      <article>
+        <p>Humans and computers commonly interact in many different ways, such as through a keyboard and mouse, touch screen interfaces, or using speech recognition systems. The most widely used way to interact with personal computers is called a graphical user interface <code>(GUI)</code>. With a <code>GUI</code>, we give instructions by clicking a mouse and using menu-driven interactions.</p>
+        <p>While the visual aid of a GUI makes it intuitive to learn, this way of delivering instructions to a computer scales very poorly. Imagine the following task: for a literature search, you have to copy the third line of one thousand text files in one thousand different directories and paste it into a single file. Using a GUI, you would not only be clicking at your desk for several hours, but you could potentially also commit an error in the process of completing this repetitive task. This is where we take advantage of the Unix shell. The Unix shell is both a command-line interface (CLI) and a scripting language, allowing such repetitive tasks to be done automatically and fast. With the proper commands, the shell can repeat tasks with or without some modification as many times as we want. Using the shell, the task in the literature example can be accomplished in seconds.</p>
+      </article>
+    </section>
+
+    <section id="shell">
+      <header>What is Shell</header>
+      <article>
+        <p>The shell is a program where users can type commands. With the shell, it's possible to invoke complicated programs like climate modeling software or simple commands that create an empty directory with only one line of code. The most popular Unix shell is Bash (the Bourne Again SHell — so-called because it's derived from a shell written by Stephen Bourne). Bash is the default shell on most modern implementations of Unix and in most packages that provide Unix-like tools for Windows.</p>
+        <p>Using the shell will take some effort and some time to learn. While a GUI presents you with choices to select, CLI choices are not automatically presented to you, so you must learn a few commands like new vocabulary in a language you're studying. However, unlike a spoken language, a small number of “words” (i.e. commands) gets you a long way, and we'll cover those essential few today.</p>
+        <p>The grammar of a shell allows you to combine existing tools into powerful pipelines and handle large volumes of data automatically. Sequences of commands can be written into a script, improving the reproducibility of workflows.</p>
+        <p>In addition, the command line is often the easiest way to interact with remote machines and supercomputers. Familiarity with the shell is near essential to run a variety of specialized tools and resources including high-performance computing systems. As clusters and cloud computing systems become more popular for scientific data crunching, being able to interact with the shell is becoming a necessary skill. We can build on the command-line skills covered here to tackle a wide range of scientific questions and computational challenges.</p>
+        <h4>Let's get started.</h4>
+        <p>When the shell is first opened, you are presented with a prompt, indicating that the shell is waiting for input.</p>
+        <pre><code><span class="bash">Bash</span> $</code></pre>
+        <p>
+          The shell typically uses <code>$</code> as the prompt, but may use a different symbol. In the examples for this lesson,
+          we'll show the prompt as <code>$</code>. Most importantly: when typing commands, either from these lessons or from other sources,
+          do not type the prompt, only the commands that follow it. Also note that after you type a command, you have to press the
+          <button class="enter-btn">Enter</button> key to execute it.
+        </p>
+        <p>
+          The prompt is followed by a text cursor, a character that indicates the position where your typing will appear. The cursor is
+          usually a flashing or solid block, but it can also be an underscore or a pipe. You may have seen it in a text editor program,
+          for example.
+        </p>
+        <p>So let's try our first command, <code>ls</code>, which is short for listing. This command will list the contents of the current directory:</p>
+        <pre><code><span class="bash">Bash</span> $ ls</code></pre>
+        <pre><code><span class="output">Output</span> Desktop Downloads Movies Pictures Documents Library Music Public</code></pre>
+        <h6>Command not found</h6>
+        <p>If the shell can't find a program whose name is the command you typed, it will print an error message such as:</p>
+        <pre><code><span class="bash">Bash</span> $ ks</code></pre>
+        <pre><code><span class="output">Output</span> ks: command not found</code></pre>
+        <p>This might happen if the command was mis-typed or if the program corresponding to that command is not installed.</p>
+        <h4>Key Points</h4>
+        <ul class="key">
+          <li>A shell is a program whose primary purpose is to read commands and run other programs.</li>
+          <li>This lesson uses Bash, the default shell in many implementations of Unix.</li>
+          <li>Programs can be run in Bash by entering commands at the command-line prompt.</li>
+          <li>The shell's main advantages are its high action-to-keystroke ratio, its support for automating repetitive tasks, and its capacity to access networked machines.</li>
+          <li>The shell's main disadvantages are its primarily textual nature and how cryptic its commands and operation can be.</li>
+        </ul>
+      </article>
+    </section>
+    <section>
+      <header>Navigating Files and Directories</header>
+      <article>
+        <p>The operating system's file system organizes data into files and directories. Directories can contain files or other directories, enabling hierarchical organization.</p>
+
+        <p>To determine your current location in the file system, use the <code>pwd</code> (print working directory) command:</p>
+
+        <code>
+          <span>Bash</span>$ pwd<br>
+          <span>Output</span> /Users/nelle
+        </code>
+
+        <p>Here, <code>/Users/nelle</code> represents the user's home directory. This path varies by operating system but follows similar principles.</p>
+
+        <p>To list the contents of the current directory, use <code>ls</code>:</p>
+
+        <code>
+          $ ls<br>
+          Applications Documents Desktop Downloads
+        </code>
+
+        <p>Add the <code>-F</code> option to classify entries:</p>
+
+        <ul>
+          <li>A trailing <code>/</code> indicates a directory.</li>
+          <li><code>@</code> marks a link.</li>
+          <li><code>*</code> marks an executable file.</li>
+        </ul>
+
+        <p>Example:</p>
+
+        <code>
+          $ ls -F<br>
+          Applications/ Documents/ Desktop/ Downloads/
+        </code>
+
+        <div class="tip">
+          Tip: Use <code>clear</code> to clean your terminal screen.
+        </div>
+
+        <p>To explore other directories, specify the directory name:</p>
+
+        <code>
+          $ ls -F Desktop<br>
+          shell-lesson-data/
+        </code>
+
+        <p>Change your current directory with <code>cd</code>:</p>
+
+        <code>
+          $ cd Desktop<br>
+          $ cd shell-lesson-data
+        </code>
+
+        <p>Move up one level in the directory tree with <code>cd ..</code>:</p>
+
+        <code>
+          $ cd ..
+        </code>
+
+        <p>To view hidden files and directories, use <code>ls -a</code>:</p>
+
+        <code>
+          $ ls -a<br>
+          ./ ../ .hidden-file
+        </code>
+
+        <div class="tip">
+          Tip: Combine options, such as <code>ls -Fa</code>, for extended functionality.
+        </div>
+        <h2>Other Hidden Files</h2>
+        <p>In addition to the hidden directories <code>..</code> and <code>.</code>, you may also see a file called <code>.bash_profile</code>. This file usually contains shell configuration settings. You may also see other files and directories beginning with <code>.</code>. These are usually files and directories that are used to configure different programs on your computer. The prefix <code>.</code> is used to prevent these configuration files from cluttering the terminal when a standard <code>ls</code> command is used.</p>
+
+        <h3>Basic Navigation Commands</h3>
+        <p>These three commands are the basic commands for navigating the filesystem on your computer: <code>pwd</code>, <code>ls</code>, and <code>cd</code>.</p>
+        <p>What happens if you type <code>cd</code> on its own, without giving a directory?</p>
+
+        <pre><code>$ cd
+$ pwd
+/Users/nelle</code></pre>
+        <p>It turns out that <code>cd</code> without an argument will return you to your home directory, which is great if you've got lost in your own filesystem.</p>
+
+        <h3>Returning to a Directory</h3>
+        <p>Let's try returning to the <code>exercise-data</code> directory from before. Last time, we used three commands, but we can actually string together the list of directories to move to <code>exercise-data</code> in one step:</p>
+
+        <pre><code>$ cd Desktop/shell-lesson-data/exercise-data
+$ pwd
+$ ls -F</code></pre>
+
+        <p>If we want to move up one level from the <code>data</code> directory, we could use <code>cd ..</code>. But there is another way to move to any directory, regardless of your current location.</p>
+
+        <h3>Absolute vs Relative Paths</h3>
+        <p>So far, when specifying directory names, or even a directory path, we have been using relative paths. However, it is possible to specify the absolute path to a directory by including its entire path from the root directory, which is indicated by a leading slash.</p>
+
+        <pre><code>$ pwd
+/Users/nelle/Desktop/shell-lesson-data/exercise-data
+$ cd /Users/nelle/Desktop/shell-lesson-data
+$ pwd
+$ ls -F</code></pre>
+
+        <h3>Two More Shortcuts</h3>
+        <p>The shell interprets a tilde (<code>~</code>) character at the start of a path to mean “the current user's home directory”. For example, if Nelle's home directory is <code>/Users/nelle</code>, then <code>~/data</code> is equivalent to <code>/Users/nelle/data</code>. This only works if it is the first character in the path.</p>
+
+        <p>Another shortcut is the dash (<code>-</code>) character. <code>cd</code> will translate <code>-</code> into the previous directory you were in. This is a very efficient way of moving back and forth between two directories.</p>
+
+        <pre><code>$ cd ~/Desktop/shell-lesson-data
+$ cd exercise-data/creatures
+$ cd -
+$ cd -</code></pre>
+
+        <p>The difference between <code>cd ..</code> and <code>cd -</code> is that the former brings you up, while the latter brings you back.</p>
+
+        <h3>Key Points</h3>
+        <ul>
+          <li>The file system manages information on the disk.</li>
+          <li>Directories can store other directories, forming a directory tree.</li>
+          <li><code>pwd</code> prints the user's current working directory.</li>
+          <li><code>ls</code> prints a listing of files and directories.</li>
+          <li><code>cd</code> changes the current working directory.</li>
+          <li>An absolute path specifies a location from the root of the file system.</li>
+          <li>A relative path specifies a location starting from the current location.</li>
+          <li><code>.</code> means the current directory, while <code>..</code> means the parent directory.</li>
+        </ul>
+      </article>
+    </section>
+
+    <section>
+      <header>Working With Files and Directories</header>
+
+      <article>
+        <section>
+          <h2>Creating Directories</h2>
+          <p>Use the <code>mkdir</code> command to create directories:</p>
+          <code>
+            $ mkdir thesis<br>
+            $ mkdir -p project/data project/results
+          </code>
+        </section>
+
+        <section>
+          <h2>Creating Files</h2>
+          <p>Create a text file using <code>nano</code> or the <code>touch</code> command:</p>
+          <code>
+            $ cd thesis<br>
+            $ nano draft.txt<br>
+            $ touch my_file.txt
+          </code>
+        </section>
+
+        <section>
+          <h2>Moving and Renaming Files</h2>
+          <p>Rename or move files using the <code>mv</code> command:</p>
+          <code>
+            $ mv thesis/draft.txt thesis/quotes.txt<br>
+            $ mv thesis/quotes.txt .
+          </code>
+        </section>
+
+        <section>
+          <h2>Copying Files and Directories</h2>
+          <p>Copy files using the <code>cp</code> command:</p>
+          <code>
+            $ cp quotes.txt thesis/quotations.txt<br>
+            $ cp -r thesis thesis_backup
+          </code>
+        </section>
+
+        <section>
+          <h2>Removing Files and Directories</h2>
+          <p>Remove files with <code>rm</code> and directories with <code>rm -r</code>:</p>
+          <code>
+            $ rm quotes.txt<br>
+            $ rm -r thesis
+          </code>
+        </section>
+
+        <section>
+          <h2>Using Wildcards</h2>
+          <p>Wildcards match patterns for multiple files:</p>
+          <code>
+            $ ls *.pdb<br>
+            $ ls ?ethane.pdb
+          </code>
+        </section>
+      </article>
+
+      <section>
+        <header>Working With Files and Directories</header>
+
+        <article>
+          <section>
+            <h2>Creating Directories</h2>
+            <p>Use the <code>mkdir</code> command to create directories:</p>
+            <code>
+              $ mkdir thesis<br>
+              $ mkdir -p project/data project/results
+            </code>
+          </section>
+
+          <section>
+            <h2>Creating Files</h2>
+            <p>Create a text file using <code>nano</code> or the <code>touch</code> command:</p>
+            <code>
+              $ cd thesis<br>
+              $ nano draft.txt<br>
+              $ touch my_file.txt
+            </code>
+          </section>
+
+          <section>
+            <h2>Moving and Renaming Files</h2>
+            <p>Rename or move files using the <code>mv</code> command:</p>
+            <code>
+              $ mv thesis/draft.txt thesis/quotes.txt<br>
+              $ mv thesis/quotes.txt .
+            </code>
+          </section>
+
+          <section>
+            <h2>Copying Files and Directories</h2>
+            <p>Copy files using the <code>cp</code> command:</p>
+            <code>
+              $ cp quotes.txt thesis/quotations.txt<br>
+              $ cp -r thesis thesis_backup
+            </code>
+          </section>
+
+          <section>
+            <h2>Removing Files and Directories</h2>
+            <p>Remove files with <code>rm</code> and directories with <code>rm -r</code>:</p>
+            <code>
+              $ rm quotes.txt<br>
+              $ rm -r thesis
+            </code>
+          </section>
+
+          <section>
+            <h2>Using Wildcards</h2>
+            <p>Wildcards match patterns for multiple files:</p>
+            <code>
+              $ ls *.pdb<br>
+              $ ls ?ethane.pdb
+            </code>
+          </section>
+        </article>
+      </section>
+
+      <section>
+        <header>Loops</header>
+        <article>
+          <p>Loops allow repetition of commands for each item in a list, making them key for automation and reducing errors. Here's a simple example to extract classifications from files:</p>
+          <pre><code>$ for filename in basilisk.dat minotaur.dat unicorn.dat
+> do
+> head -n 2 $filename | tail -n 1
+> done
+CLASSIFICATION: basiliscus vulgaris
+CLASSIFICATION: bos hominus
+CLASSIFICATION: equus monoceros</code></pre>
+
+          <h2>General Loop Structure</h2>
+          <pre><code>for variable in list
+    do
+        commands
+    done</code></pre>
+
+          <h3>Example:</h3>
+          <pre><code>$ for x in file1 file2 file3
+> do
+> echo $x
+> done</code></pre>
+
+          <h2>Handling Variables</h2>
+          <p>Access variables using <code>$variable</code>. Use curly braces <code>${variable}</code> for clarity when concatenating.</p>
+
+          <h2>Loop with Wildcards</h2>
+          <pre><code>$ for datafile in *.pdb
+> do
+> echo $datafile
+> done</code></pre>
+
+          <h2>Saving Output</h2>
+          <pre><code>$ for alkanes in *.pdb
+> do
+> cat $alkanes >> combined.pdb
+> done</code></pre>
+
+          <h2>Handling File Spaces</h2>
+          <pre><code>$ for filename in "red dragon.dat" "purple unicorn.dat"
+> do
+> echo $filename
+> done</code></pre>
+
+          <h2>Debugging with Echo</h2>
+          <pre><code>$ for filename in *.dat
+> do
+> echo cp $filename backup-$filename
+> done</code></pre>
+        </article>
+        <section>
+          <header>Loops</header>
+          <article>
+            <p>Loops are programming constructs that allow repeating commands for each item in a list, improving productivity through automation and reducing errors.</p>
+            <p>For example, to print the classification of species in files named <code>basilisk.dat</code>, <code>minotaur.dat</code>, and <code>unicorn.dat</code>, we use:</p>
+            <pre>
+$ for filename in basilisk.dat minotaur.dat unicorn.dat
+> do
+> head -n 2 $filename | tail -n 1
+> done
+        </pre>
+            <p>The output will be:</p>
+            <pre>
+CLASSIFICATION: basiliscus vulgaris
+CLASSIFICATION: bos hominus
+CLASSIFICATION: equus monoceros
+        </pre>
+            <p>The shell iterates over the list, assigns each item to the variable <code>filename</code>, and executes the loop body. Variables like <code>$filename</code> are referenced with a <code>$</code>.</p>
+            <p>Loops can handle filenames, numbers, or other data, and variable names should be meaningful.</p>
+            <p>To back up files, a loop like this can be used:</p>
+            <pre>
+$ for filename in *.dat
+> do
+> cp $filename original-$filename
+> done
+        </pre>
+            <p>Use quotes for filenames with spaces:</p>
+            <pre>
+$ for filename in "red dragon.dat" "purple unicorn.dat"
+> do
+> head -n 100 "$filename" | tail -n 20
+> done
+        </pre>
+            <p>Debug loops using <code>echo</code>:</p>
+            <pre>
+$ for filename in *.dat
+> do
+> echo cp $filename original-$filename
+> done
+        </pre>
+          </article>
+        </section>
+
+        <p>Loops allow you to repeat a sequence of commands in the shell. This is particularly useful for automating repetitive tasks.</p>
+
+        <h2>1. For Loop</h2>
+        <p>The <code>for</code> loop iterates over a list of items. Example:</p>
+        <pre><code>for file in *.txt
+do
+    echo "Processing $file"
+done</code></pre>
+        <div class="example">
+          <p><strong>Explanation:</strong></p>
+          <ul>
+            <li><code>*.txt</code>: Matches all text files in the current directory.</li>
+            <li><code>echo</code>: Prints the current file being processed.</li>
+          </ul>
+        </div>
+
+        <h2>2. While Loop</h2>
+        <p>The <code>while</code> loop continues execution as long as the condition is true. Example:</p>
+        <pre><code>count=1
+while [ $count -le 5 ]
+do
+    echo "Count: $count"
+    count=$((count + 1))
+done</code></pre>
+        <div class="example">
+          <p><strong>Explanation:</strong></p>
+          <ul>
+            <li><code>[ $count -le 5 ]</code>: Checks if the count is less than or equal to 5.</li>
+            <li><code>count=$((count + 1))</code>: Increments the count variable.</li>
+          </ul>
+        </div>
+
+        <h2>3. Until Loop</h2>
+        <p>The <code>until</code> loop executes commands until the condition becomes true. Example:</p>
+        <pre><code>count=1
+until [ $count -gt 5 ]
+do
+    echo "Count: $count"
+    count=$((count + 1))
+done</code></pre>
+        <div class="example">
+          <p><strong>Explanation:</strong></p>
+          <ul>
+            <li><code>[ $count -gt 5 ]</code>: Executes the loop until the count exceeds 5.</li>
+          </ul>
+        </div>
+      </section>
+      <section>
+        <header>Shell Scripts</header>
+        <article>
+          <p>Shell scripts save frequently used commands in files, allowing you to re-run them with a single command. This makes work faster, reduces errors, and ensures reproducibility. Below are some examples and concepts related to shell scripting.</p>
+
+          <h3>Creating and Running a Shell Script</h3>
+          <p>To create a shell script:</p>
+          <pre>
+$ cd proteins
+$ nano middle.sh
+        </pre>
+          <p>Add the following line in <code>nano</code>:</p>
+          <pre>
+head -n 15 octane.pdb | tail -n 5
+        </pre>
+          <p>Save the file and execute it:</p>
+          <pre>
+$ bash middle.sh
+        </pre>
+
+          <h3>Making Scripts Versatile</h3>
+          <p>Modify <code>middle.sh</code> to use command-line arguments:</p>
+          <pre>
+head -n "$2" "$1" | tail -n "$3"
+        </pre>
+          <p>Run with:</p>
+          <pre>
+$ bash middle.sh pentane.pdb 15 5
+        </pre>
+
+          <h3>Using <code>$@</code> for Multiple Arguments</h3>
+          <p>Create a script to sort files by line count:</p>
+          <pre>
+$ nano sorted.sh
+# Sort files by their length
+wc -l "$@" | sort -n
+        </pre>
+          <p>Execute:</p>
+          <pre>
+$ bash sorted.sh *.pdb ../creatures/*.dat
+        </pre>
+
+          <h3>Reusable Scripts with Comments</h3>
+          <p>Always include comments to explain script functionality:</p>
+          <pre>
+# Select lines from the middle of a file
+# Usage: bash middle.sh filename end_line num_lines
+head -n "$2" "$1" | tail -n "$3"
+        </pre>
+
+          <h3>Using Loops in Scripts</h3>
+          <p>Example of processing multiple files:</p>
+          <pre>
+# Calculate stats for data files
+for datafile in "$@"
+do
+    echo $datafile
+    bash goostats.sh $datafile stats-$datafile
+done
+        </pre>
+          <p>Execute:</p>
+          <pre>
+$ bash do-stats.sh NENE*A.txt NENE*B.txt
+        </pre>
+
+          <h3>Advanced Example</h3>
+          <p>Script to find the file with the most lines:</p>
+          <pre>
+$ nano longest.sh
+# Find the longest file with a given extension
+wc -l "$1"/*."$2" | sort -n | tail -n 1
+        </pre>
+          <p>Run with:</p>
+          <pre>
+$ bash longest.sh shell-lesson-data/exercise-data/proteins pdb
+        </pre>
+        </article>
+      </section>
+
+      <section>
+        <header>Finding Things</header>
+        <article>
+          <p>In the same way that many of us now use 'Google' as a verb meaning 'to find', Unix programmers often use the word 'grep'. 'grep' is a contraction of 'global/regular expression/print', a common sequence of operations in early Unix text editors. It is also the name of a very useful command-line program.</p>
+
+          <p>grep finds and prints lines in files that match a pattern. For our examples, we will use a file that contains three haiku taken from a 1998 competition in Salon magazine. For this set of examples, we're going to be working in the writing subdirectory:</p>
+
+          <pre>$ cd Desktop/shell-lesson-data/exercise-data/writing</pre>
+          <pre>$ cat haiku.txt</pre>
+
+          <p>The Tao that is seen</p>
+          <p>Is not the true Tao, until</p>
+          <p>You bring fresh toner.</p>
+          <p>With searching comes loss</p>
+          <p>and the presence of absence:</p>
+          <p>"My Thesis" not found.</p>
+          <p>Yesterday it worked</p>
+          <p>Today it is not working</p>
+          <p>Software is like that.</p>
+
+          <p>Let's find lines that contain the word 'not':</p>
+          <pre>$ grep not haiku.txt</pre>
+          <pre>Is not the true Tao, until</pre>
+          <pre>"My Thesis" not found</pre>
+          <pre>Today it is not working</pre>
+
+          <p>Here, not is the pattern we're searching for. The grep command searches through the file, looking for matches to the pattern specified. To use it type grep, then the pattern we're searching for and finally the name of the file (or files) we're searching in.</p>
+
+          <p>By default, grep searches for a pattern in a case-sensitive way. Let's search for the pattern: 'The'.</p>
+          <pre>$ grep The haiku.txt</pre>
+          <pre>The Tao that is seen</pre>
+          <pre>"My Thesis" not found.</pre>
+
+          <p>Let's restrict matches to lines containing the word 'The' on its own with the -w option:</p>
+          <pre>$ grep -w The haiku.txt</pre>
+          <pre>The Tao that is seen</pre>
+
+          <p>Let's search for the phrase “is not”:</p>
+          <pre>$ grep -w "is not" haiku.txt</pre>
+          <pre>Today it is not working</pre>
+
+          <p>Another useful option is -n, which numbers the lines that match:</p>
+          <pre>$ grep -n "it" haiku.txt</pre>
+          <pre>5:With searching comes loss</pre>
+          <pre>9:Yesterday it worked</pre>
+          <pre>10:Today it is not working</pre>
+
+          <p>We can combine options (i.e. flags) as we do with other Unix commands:</p>
+          <pre>$ grep -n -w "the" haiku.txt</pre>
+          <pre>2:Is not the true Tao, until</pre>
+          <pre>6:and the presence of absence:</pre>
+
+          <p>To make our search case-insensitive, we use the -i option:</p>
+          <pre>$ grep -n -w -i "the" haiku.txt</pre>
+          <pre>1:The Tao that is seen</pre>
+          <pre>2:Is not the true Tao, until</pre>
+          <pre>6:and the presence of absence:</pre>
+
+          <p>Now, let's invert our search with the -v option:</p>
+          <pre>$ grep -n -w -v "the" haiku.txt</pre>
+          <pre>1:The Tao that is seen</pre>
+          <pre>3:You bring fresh toner.</pre>
+          <pre>4:</pre>
+          <pre>5:With searching comes loss</pre>
+          <pre>7:"My Thesis" not found.</pre>
+          <pre>8:</pre>
+          <pre>9:Yesterday it worked</pre>
+          <pre>10:Today it is not working</pre>
+          <pre>11:Software is like that.</pre>
+
+          <p>To search recursively for “Yesterday”:</p>
+          <pre>$ grep -r Yesterday .</pre>
+          <pre>./LittleWomen.txt:"Yesterday, when Aunt was asleep and I was trying to be as still as a</pre>
+          <pre>./LittleWomen.txt:Yesterday at dinner, when an Austrian officer stared at us and then</pre>
+          <pre>./LittleWomen.txt:Yesterday was a quiet day spent in teaching, sewing, and writing in my</pre>
+          <pre>./haiku.txt:Yesterday it worked</pre>
+
+          <p>To see all grep options, use:</p>
+          <pre>$ grep --help</pre>
+
+          <p>Using wildcards in grep:</p>
+          <pre>$ grep -E "^.o" haiku.txt</pre>
+          <pre>You bring fresh toner.</pre>
+          <pre>Today it is not working</pre>
+          <pre>Software is like that.</pre>
+        </article>
+      </section>
+     <footer>
+        <p>this code is writen and developped by <a href="https://github.com/Okoro91" target="_blank">MI Okoro</a></p>
+      </footer>
+  </main>
+</div>
+</body>
+</html>
